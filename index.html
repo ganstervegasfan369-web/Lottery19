@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>American Online Lottery – Official Result</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Oswald:wght@600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+background:#000;
+font-family:Montserrat;
+color:#fff;
+}
+
+.app{
+max-width:1200px;
+margin:auto;
+border:12px solid #facc15;
+background:#000;
+}
+
+/* TOP */
+@keyframes rainbowBG{
+0%{background-position:0%}
+100%{background-position:400%}
+}
+.top{
+font-size:52px;
+text-align:center;
+padding:18px;
+background:linear-gradient(270deg,red,orange,yellow,green,cyan,blue,violet,red);
+background-size:400%;
+animation:rainbowBG 18s linear infinite;
+text-shadow:3px 3px 0 #000;
+}
+
+/* SUBTITLE */
+@keyframes subLoop{
+0%{background:#00008B}
+33%{background:#002D04}
+66%{background:#800020}
+100%{background:#00008B}
+}
+.sub{
+font-size:42px;
+text-align:center;
+padding:16px;
+animation:subLoop 18s ease-in-out infinite;
+letter-spacing:2px;
+border-top:4px solid #000;
+border-bottom:4px solid #000;
+}
+
+/* STAGE */
+.stage{
+position:relative;
+background:linear-gradient(#d1d5db,#f8fafc);
+padding:36px 100px;
+}
+
+/* RIBBONS */
+.ribbon{
+position:absolute;
+top:0;bottom:0;
+width:95px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:38px;
+font-weight:800;
+writing-mode:vertical-rl;
+text-shadow:2px 2px 0 #000;
+color:#fff;
+}
+
+@keyframes leftLoop{
+0%{background:#332421}
+25%{background:#a3006b}
+50%{background:#00008B}
+75%{background:#006400}
+100%{background:#332421}
+}
+.left{
+left:0;
+transform:rotate(180deg);
+animation:leftLoop 22s ease-in-out infinite;
+}
+
+@keyframes rightLoop{
+0%{background:#00008B}
+20%{background:#00008B}
+40%{background:#006400}
+60%{background:#A9A9A9}
+80%{background:#FF8C00}
+100%{background:#00008B}
+}
+.right{
+right:0;
+animation:rightLoop 24s ease-in-out infinite;
+}
+
+/* FRAME */
+.frame{
+display:flex;
+justify-content:center;
+gap:20px;
+padding:30px;
+background:linear-gradient(#9ca3af,#e5e7eb);
+border:10px solid #374151;
+box-shadow:inset 0 0 45px rgba(0,0,0,.65);
+overflow:hidden;
+position:relative;
+}
+
+/* SLOT */
+.slot{
+width:115px;
+height:210px;
+overflow:hidden;
+border:6px solid #000;
+background:linear-gradient(#111,#555);
+}
+
+/* REEL */
+.reel{
+position:absolute;
+top:0;
+width:100%;
+will-change:transform;
+}
+.reel div{
+height:210px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-family:Oswald;
+font-size:120px;
+background:#fff;
+color:#000;
+border-bottom:2px solid #ccc;
+}
+
+/* WIN */
+@keyframes winFlash{
+from{box-shadow:inset 0 0 25px gold}
+to{box-shadow:inset 0 0 75px gold}
+}
+.win{animation:winFlash .45s alternate infinite}
+
+/* CONFETTI */
+.confetti{
+position:absolute;
+width:10px;
+height:10px;
+animation:fall 3.8s linear forwards;
+}
+@keyframes fall{
+to{transform:translateY(360px) rotate(720deg);opacity:0}
+}
+
+/* INFO */
+.info{
+background:#fde047;
+color:#000;
+display:flex;
+justify-content:space-around;
+align-items:center;
+font-size:34px;
+padding:18px;
+font-weight:800;
+}
+
+/* LIVE */
+@keyframes liveBlink{
+0%,100%{opacity:1;text-shadow:0 0 8px red}
+50%{opacity:.6;text-shadow:0 0 18px red}
+}
+#venue{
+color:#b91c1c;
+animation:liveBlink 2.5s ease-in-out infinite;
+}
+
+/* ADMIN */
+.admin{
+background:#020617;
+padding:22px;
+border-top:8px solid #facc15;
+}
+.admin h3{
+font-size:26px;
+color:#facc15;
+}
+.admin input,.admin button{
+padding:12px;
+font-size:18px;
+margin:6px;
+width:230px;
+}
+.admin button{
+background:#facc15;
+border:none;
+font-weight:800;
+cursor:pointer;
+}
+.history{
+margin-top:12px;
+font-size:16px;
+color:#9ca3af;
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<div class="top" id="topText">AMERICAN ONLINE LOTTERY</div>
+<div class="sub" id="subText">LION KING – DAILY DRAW</div>
+
+<div class="stage">
+<div class="ribbon left" id="leftRibbon">LION KING</div>
+<div class="ribbon right" id="rightRibbon">OFFICIAL</div>
+<div class="frame" id="frame"></div>
+</div>
+
+<div class="info">
+<div>DATE: <span id="date"></span></div>
+<div>TIME: <span id="time"></span></div>
+<div id="venue">LIVE DRAW</div>
+</div>
+
+<div class="admin">
+<h3>ADVANCED ADMIN CONTROLS</h3>
+
+<input id="force" placeholder="FORCE RESULT (5 DIGITS)">
+<button onclick="spin()">SPIN</button>
+<button onclick="spinRandom()">RANDOM</button><br>
+
+<label>SPIN SPEED</label>
+<input type="range" id="speed" min="60" max="120" value="90">
+
+<label>STOP DELAY</label>
+<input type="range" id="delay" min="500" max="1400" value="800"><br>
+
+<label>SOUND</label>
+<input type="range" id="volume" min="0" max="1" step="0.01" value="0.85">
+
+<label>CONFETTI</label>
+<input type="range" id="confettiCount" min="80" max="300" value="150">
+
+<div class="history" id="history">Recent Results: —</div>
+</div>
+
+</div>
+
+<script>
+const DIGIT_HEIGHT = 210;
+const frame = document.getElementById('frame');
+const reels = [];
+const historyBox = document.getElementById('history');
+let history=[];
+
+/* BUILD REELS */
+for(let i=0;i<5;i++){
+const slot=document.createElement('div');
+slot.className='slot';
+
+const reel=document.createElement('div');
+reel.className='reel';
+
+/* duplicate digits for seamless loop */
+for(let r=0;r<3;r++){
+for(let n=0;n<10;n++){
+const d=document.createElement('div');
+d.textContent=n;
+reel.appendChild(d);
+}
+}
+
+slot.appendChild(reel);
+frame.appendChild(slot);
+reels.push(reel);
+}
+
+/* AUDIO */
+const ctx=new (window.AudioContext||webkitAudioContext)();
+
+function rollSound(){
+const o=ctx.createOscillator();
+const g=ctx.createGain();
+o.type='triangle';
+o.frequency.value=90;
+g.gain.value=volume.value*0.12;
+o.connect(g).connect(ctx.destination);
+o.start();
+return ()=>o.stop();
+}
+
+function stopSound(){
+const o=ctx.createOscillator();
+const g=ctx.createGain();
+o.frequency.value=45;
+g.gain.value=volume.value*0.6;
+o.connect(g).connect(ctx.destination);
+o.start();
+setTimeout(()=>o.stop(),260);
+}
+
+/* ANNOUNCE */
+function announce(res){
+speechSynthesis.cancel();
+const u=new SpeechSynthesisUtterance(
+"The winning number is " + res.split('').join(' ')
+);
+u.rate=0.88;
+speechSynthesis.speak(u);
+}
+
+/* CONFETTI */
+function celebrate(){
+frame.classList.add('win');
+for(let i=0;i<confettiCount.value;i++){
+const c=document.createElement('div');
+c.className='confetti';
+c.style.left=Math.random()*100+'%';
+c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+frame.appendChild(c);
+setTimeout(()=>c.remove(),3800);
+}
+setTimeout(()=>frame.classList.remove('win'),2600);
+}
+
+/* SPIN – PERFECT MECHANICS */
+function spinWithResult(result){
+reels.forEach((reel,i)=>{
+let position=0;
+const stopRoll=rollSound();
+
+const interval=setInterval(()=>{
+position+=DIGIT_HEIGHT;
+if(position>=DIGIT_HEIGHT*10) position=0;
+reel.style.transform=`translateY(-${position}px)`;
+},speed.value);
+
+setTimeout(()=>{
+clearInterval(interval);
+
+/* snap to result */
+const digit=result[i];
+const target=(10+digit)*DIGIT_HEIGHT;
+
+reel.style.transition='transform .5s cubic-bezier(.25,.8,.25,1)';
+reel.style.transform=`translateY(-${target}px)`;
+
+stopRoll();
+stopSound();
+
+if(i===reels.length-1){
+celebrate();
+announce(result);
+history.unshift(result);
+history=history.slice(0,5);
+historyBox.textContent="Recent Results: "+history.join(" | ");
+}
+
+setTimeout(()=>reel.style.transition='',600);
+},1200+i*delay.value);
+});
+}
+
+function random(){
+return Math.floor(Math.random()*100000).toString().padStart(5,'0');
+}
+function spin(){
+spinWithResult(/^\d{5}$/.test(force.value)?force.value:random());
+}
+function spinRandom(){spinWithResult(random())}
+
+/* TIME */
+const now=new Date();
+date.textContent=now.toLocaleDateString();
+time.textContent=now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+</script>
+</body>
+</html>
